@@ -3,7 +3,7 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
 @Component({
   selector: 'app-news',
   templateUrl: './app.news.component.html',
-  styleUrls: ['./app.news.component.scss']
+  styleUrls: ['./styles/app.scss'],
 })
 export class AppNewsComponent {
 
