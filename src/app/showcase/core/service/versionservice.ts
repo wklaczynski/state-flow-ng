@@ -7,6 +7,9 @@ export class VersionService {
     constructor(private http: HttpClient) { }
 
     getVersions() {
-        return '';
+        return this.http.get<any>('https://www.primefaces.org/primeng/versions.json')
+        .toPromise()
+        .then(res => res.versions)
+        .then(data => { return data; });
     }
 }
