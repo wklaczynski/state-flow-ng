@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 
 import { AppFooterComponent } from './app.footer.component';
+import { SetupComponent } from './components/setup/setup.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AppFooterComponent
+    AppFooterComponent,
+    SetupComponent
   ],
   imports: [
     FormsModule,
