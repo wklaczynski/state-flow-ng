@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-topbar',
     templateUrl: './app.topbar.component.html',
-    styleUrls: ['./styles/app.scss'],
+    styleUrls: ['./styles/decorator.scss'],
     animations: [
         trigger('overlayMenuAnimation', [
             transition(':enter', [
