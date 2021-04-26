@@ -3,9 +3,26 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
+        "state-flow-engine-library": {
+            "root": "src",
+            "projectType": "library",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "project": "src/app/components/ng-package.json",
+                        "tsConfig": "src/app/components/tsconfig.lib.json"
+                    }
+                }
+            }
+        },
         "state-flow-engine": {
             "projectType": "application",
-            "schematics": {},
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
+                }
+            },
             "root": "",
             "sourceRoot": "src",
             "prefix": "app",
@@ -22,6 +39,9 @@
                         "assets": [
                             "src/favicon.ico",
                             "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles.scss"
                         ],
                         "styles": [
                             "src/styles.css",

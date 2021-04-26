@@ -20,6 +20,14 @@ export class AppComponent implements OnInit, OnDestroy {
       this.addClass(document.body, 'blocked-scroll');
   }
 
+  onMaskClick() {
+      this.hideMenu();
+  }
+
+  hideMenu() {
+      this.menuActive = false;
+      this.removeClass(document.body, 'blocked-scroll');
+  }
 
   addClass(element: any, className: string) {
       if (element.classList)

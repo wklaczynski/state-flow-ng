@@ -7,16 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 
-import { AppFooterComponent } from './app.footer.component';
-import { SetupComponent } from './components/setup/setup.component';
+import { AppFooterComponent } from './core/decorator/app.footer.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AppFooterComponent,
-    SetupComponent
+    AppFooterComponent
   ],
   imports: [
     FormsModule,
