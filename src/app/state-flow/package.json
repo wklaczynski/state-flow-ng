@@ -1,24 +1,32 @@
 {
   "name": "state-flow",
-  "version": "1.0.0-SNAPSHOT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/primefaces/primeng"
+  "version": "1.0.0",
+  "description": "Angular state-flow",
+  "author": "@ng-select/ng-select",
+  "license": "MIT",
+  "name": "state-flow",
+  "engines": {
+    "node": ">= 6.9.0",
+    "npm": ">= 3.0.0"
   },
   "keywords": [
     "angular"
   ],
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/primefaces/primeng"
+  },
   "bugs": {
     "url": "https://github.com/primefaces/primeng/issues"
   },
   "module": "state-flow.js",
   "typings": "state-flow.d.ts",
   "peerDependencies": {
-    "@angular/core": "^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0",
-    "@angular/common": "^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0",
-    "@angular/forms": "^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0",
-    "rxjs": "^6.0.0",
-    "zone.js": "^0.10.2 || ^0.11.0"
+    "@angular/common": ">=11.0.0 <12.0.0",
+    "@angular/core": ">=11.0.0 <12.0.0",
+    "@angular/forms": ">=11.0.0 <12.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   }
 }

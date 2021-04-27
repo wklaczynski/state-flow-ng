@@ -19,9 +19,11 @@
             "dom"
         ],
         "paths": {
-            "state-flow/*": ["src/app/components/*/public_api"]
+            "@state-flow/state-flow": [
+                "src/state-flow/public-api.ts"
+            ]
         }
-     },
+    },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false
     }
