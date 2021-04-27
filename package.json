@@ -13,10 +13,6 @@
         "build-lib": "ng build state-flow-library && gulp build-assets"
     },
     "private": true,
-    "dependencies": {
-        "@scion-scxml/sax": "^1.3.24",
-        "@scion-scxml/scxml": "^4.3.25"
-    },
     "devDependencies": {
         "@angular-devkit/build-angular": "~0.1102.10",
         "@angular-devkit/build-ng-packagr": "0.1002.0",

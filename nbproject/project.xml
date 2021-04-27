@@ -5,5 +5,11 @@
         <data xmlns="http://www.netbeans.org/ns/clientside-project/1">
             <name>state-flow</name>
         </data>
+        <gulp-tasks xmlns="http://www.netbeans.org/ns/build-tool-tasks/1">
+            <workdir path="" showSimpleTasks="true">
+                <task index="0" name="new" options="" parameters="" tasks=""/>
+                <task index="1" name="new" options="" parameters="" tasks=""/>
+            </workdir>
+        </gulp-tasks>
     </configuration>
 </project>
