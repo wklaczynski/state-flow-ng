@@ -7,7 +7,8 @@ import { HomeComponent } from './components/home/home.component';
         RouterModule.forRoot([
             {path: '', component: HomeComponent},
             {path: 'setup', loadChildren: () => import('./components/setup/setup.module').then(m => m.SetupModule)},
-            {path: 'develop', loadChildren: () => import('./components/develop/develop.module').then(m => m.DevelopModule)}
+            {path: 'develop', loadChildren: () => import('./components/develop/develop.module').then(m => m.DevelopModule)},
+            {path: 'example/scxml-structure', loadChildren: () => import('./examples/show-scxml-structure/show-scxml-structure.module').then(m => m.ShowScxmlStructureModule)}
         ], {scrollPositionRestoration: 'enabled'})    
     ],
     exports: [RouterModule]

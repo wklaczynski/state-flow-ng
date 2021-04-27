@@ -48,6 +48,12 @@ export class AppMenuComponent {
             ]
         },
         {
+            label: 'Examles', value: 'examles', 
+            items: [
+                {label: 'SCXML Structure', value: '/example/scxml-structure'}
+            ]
+        },
+        {
             label: 'Utilities', value: 'utilities', 
             items: [
                 {label: 'Develop', value: '/develop'}
