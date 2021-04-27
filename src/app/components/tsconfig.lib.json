@@ -17,7 +17,7 @@
       "skipLibCheck": true,
       "types": [],
       "paths": {
-        "primeng/*": ["src/app/components/*/public_api"]
+        "state-flow/*": ["src/app/components/*/public_api"]
       }
     },
     "angularCompilerOptions": {
@@ -25,8 +25,8 @@
       "annotateForClosureCompiler": false,
       "strictMetadataEmit": true,
       "skipTemplateCodegen": true,
-      "flatModuleOutFile": "primeng.js",
-      "flatModuleId": "primeng"
+      "flatModuleOutFile": "state-flow.js",
+      "flatModuleId": "state-flow"
     },
     "files": [
       "./public_api.ts"
