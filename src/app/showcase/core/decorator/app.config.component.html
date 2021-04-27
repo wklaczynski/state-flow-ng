@@ -1,0 +1,11 @@
+<div class="layout-config" [ngClass]="{'layout-config-active': active}">
+    <div class="layout-config-content-wrapper">
+        <a tabindex="0" class="layout-config-button" (click)="toggleConfigurator($event)">
+            <i class="pi pi-cog"></i>
+        </a>
+        <a tabindex="0" class="layout-config-close" (click)="hideConfigurator($event)">
+            <i class="pi pi-times"></i>
+        </a>
+
+    </div>
+</div>
