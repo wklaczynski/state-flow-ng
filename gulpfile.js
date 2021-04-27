@@ -9,8 +9,8 @@ var gulp = require('gulp'),
 
 gulp.task('build-css', function() {
 	gulp.src([
-        'src/app/components/common/common.css',
-		    'src/app/components/**/*.css'
+        'src/app/state-flow/common/common.css',
+		    'src/app/state-flow/**/*.css'
     ])
         .pipe(concat('state-flow.css'))
         .pipe(gulp.dest('dist/resources'));
@@ -18,7 +18,7 @@ gulp.task('build-css', function() {
 
 gulp.task('build-css-prod', function() {
     gulp.src([
-        'src/app/components/common/common.css'
+        'src/app/state-flow/common/common.css'
     ])
     .pipe(concat('state-flow.css'))
     .pipe(gulp.dest('dist/resources'))
@@ -29,15 +29,15 @@ gulp.task('build-css-prod', function() {
 
 gulp.task('copy-component-css', function () {
     gulp.src([
-        'src/app/components/**/*.css',
-        'src/app/components/**/images/*.png',
-        'src/app/components/**/images/*.gif'
+        'src/app/state-flow/**/*.css',
+        'src/app/state-flow/**/images/*.png',
+        'src/app/state-flow/**/images/*.gif'
     ])
-    .pipe(gulp.dest('dist/resources/components'));
+    .pipe(gulp.dest('dist/resources/state-flow'));
 });
 
 gulp.task('images', function() {
-    return gulp.src(['src/app/components/**/images/*.png', 'src/app/components/**/images/*.gif'])
+    return gulp.src(['src/app/state-flow/**/images/*.png', 'src/app/state-flow/**/images/*.gif'])
         .pipe(flatten())
         .pipe(gulp.dest('dist/resources/images'));
 });
