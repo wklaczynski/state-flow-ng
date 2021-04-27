@@ -33,12 +33,13 @@
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "outputPath": "dist/showcase",
+                        "showCircularDependencies": false,
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",
                         "aot": true,
-                        "deployUrl": "/",
+                        "deployUrl": "/state-flow-ng/",
                         "assets": [
                             "src/favicon.ico",
                             "src/assets"
@@ -82,7 +83,8 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "state-flow:build"
+                        "browserTarget": "state-flow:build",
+                        "deployUrl": "/"
                     },
                     "configurations": {
                         "production": {

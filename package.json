@@ -9,10 +9,25 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "build:showcase": "ng build state-flow --prod --baseHref=/",
+        "build:showcase": "ng build state-flow --prod --baseHref=/state-flow-ng",
         "build:library": "ng build state-flow-library"
     },
     "private": true,
+    "release": {
+        "branch": "master",
+        "plugins": [
+            "@semantic-release/commit-analyzer",
+            "@semantic-release/changelog",
+            "@semantic-release/github",
+            [
+                "@semantic-release/npm",
+                {
+                    "pkgRoot": "dist/state-flow-ng"
+                }
+            ],
+            "@semantic-release/release-notes-generator"
+        ]
+    },
     "dependencies": {
         "@angular/animations": "~11.2.11",
         "@angular/common": "~11.2.11",
