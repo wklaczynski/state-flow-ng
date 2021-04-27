@@ -7,9 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { DecoratorModule } from './core/decorator/decorator.module';
-import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [

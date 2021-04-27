@@ -7,7 +7,7 @@ import { HomeComponent } from './components/home/home.component';
         RouterModule.forRoot([
             {path: '', component: HomeComponent},
             {path: 'setup', loadChildren: () => import('./components/setup/setup.module').then(m => m.SetupModule)},
-            {path: 'design', loadChildren: () => import('./components/design/design.module').then(m => m.DesignModule)}
+            {path: 'develop', loadChildren: () => import('./components/develop/develop.module').then(m => m.DevelopModule)}
         ], {scrollPositionRestoration: 'enabled'})    
     ],
     exports: [RouterModule]
