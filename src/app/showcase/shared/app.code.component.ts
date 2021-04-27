@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'app-code',
     template: `
-        <pre [ngClass]="'language-' + lang"><code #code><ng-content></ng-content>
+        <pre [ngClass]="'language-' + lang"><code [ngClass]="'language-' + lang"><ng-content></ng-content>
 </code></pre>
-    `
+`
 })
 export class AppCodeComponent implements AfterViewInit {
 

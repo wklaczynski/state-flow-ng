@@ -1,0 +1,23 @@
+<div class="layout-sidebar" [ngClass]="{'active': active}">
+    <a [routerLink]="['/']" class="logo">
+        <img alt="logo" [src]="'assets/showcase/images/' + (config.dark ? 'primeng-logo-light.svg' : 'primeng-logo-dark.svg')" />
+    </a>
+    <div class="layout-sidebar-filter p-fluid p-input-filled">
+        <p-autoComplete [group]="true" [(ngModel)]="selectedRoute" [minLength]="2" [suggestions]="filteredRoutes" scrollHeight="300px" (onSelect)="onSelect($event)" placeholder="Search by name..." (completeMethod)="filterGroupedRoute($event)" field="label">
+        </p-autoComplete>
+    </div>
+    <div class="layout-menu">
+        <div class="menu-category">General</div>
+        <div class="menu-items">
+            <a [routerLink]=" ['/setup']" routerLinkActive="router-link-exact-active">Get Started</a>
+            <a [routerLink]=" ['/i18n']" routerLinkActive="router-link-exact-active">Locale</a>
+            <a href="https://github.com/primefaces/primeng/wiki/Migration-Guide" target="_blank">Migration Guide</a>
+
+        </div>
+
+        <div class="menu-category">Utilities</div>
+        <div class="menu-items">
+            <a [routerLink]=" ['/filterservice']" routerLinkActive="router-link-exact-active">FilterService</a>
+        </div>
+    </div>
+</div>
