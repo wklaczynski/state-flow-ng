@@ -10,8 +10,6 @@ import { AppTopBarComponent } from './app.topbar.component';
 import { AppMenuComponent } from './app.menu.component';
 import { AppFooterComponent } from './app.footer.component';
 
-import { AutoCompleteModule } from 'primeng/autocomplete';
-
 @NgModule({
   declarations: [
     AppNewsComponent,
@@ -27,7 +25,6 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
   ],
   imports: [
     CommonModule,
-    AutoCompleteModule,
     RouterModule
   ],
   providers: [
