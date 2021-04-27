@@ -19,7 +19,7 @@ export class AppConfigService {
     updateConfig(config: AppConfig) {
         this.config = config;
         this.configUpdate.next(config);
-    }
+}
 
     getConfig() {
         return this.config;
