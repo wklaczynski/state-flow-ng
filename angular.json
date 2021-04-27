@@ -4,11 +4,13 @@
     "newProjectRoot": "projects",
     "projects": {
         "state-flow-library": {
-            "root": "src",
+            "root": "src/app/components",
+            "sourceRoot": "src/app/components",
             "projectType": "library",
+            "prefix": "lib",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
                     "options": {
                         "project": "src/app/components/ng-package.json",
                         "tsConfig": "src/app/components/tsconfig.lib.json"
@@ -16,7 +18,7 @@
                 }
             }
         },
-        "state-flow": {
+        "showcase": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -139,5 +141,5 @@
             }
         }
     },
-    "defaultProject": "state-flow"
+    "defaultProject": "showcase"
 }
