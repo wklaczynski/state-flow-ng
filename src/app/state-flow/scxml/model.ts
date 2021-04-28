@@ -30,6 +30,13 @@ export interface ParsedValueContainer {
     setParsedValue(parsedValue: ParsedValue);
 }
 
+export interface ContentContainer {
+
+    getContent(): Content;
+
+    setContent(content: Content);
+}
+
 export class TransitionTarget {
 
     private id: string;
@@ -194,6 +201,45 @@ export class Action {
     execute(exctx:ActionExecutionContext) {}
 }
 
+export class CustomAction extends Action {
+
+    public static ERR_NO_NAMESPACE: string =
+        "Cannot define a custom SCXML action with a null or empty namespace";
+
+    private static NAMESPACE_SCXML: string =
+        "http://www.w3.org/2005/07/scxml";
+        
+    private static ERR_RESERVED_NAMESPACE: string =
+        "Cannot define a custom SCXML action within the SCXML namespace '"
+        + CustomAction.NAMESPACE_SCXML + "'";
+        
+    private static ERR_NO_LOCAL_NAME: string =
+        "Cannot define a custom SCXML action with a null or empty local name";
+
+    private static ERR_NOT_AN_ACTION: string =
+        "Custom SCXML action does not extend Action superclass";
+
+    private namespaceURI: string;
+
+    private localName: string;
+
+    getNamespaceURI(): string {
+        return this.namespaceURI;
+    }
+    
+    setNamespaceURI(namespaceURI: string) {
+        this.namespaceURI = namespaceURI;
+    }
+    
+    getLocalName(): string {
+        return this.localName;
+    }
+    
+    setLocalName(localName: string) {
+        this.localName = localName;
+    }
+}
+
 export class Assign extends Action implements ParsedValueContainer {
     
     private location: string;
@@ -265,7 +311,7 @@ export class Cancel extends Action {
     }
 }
 
-export class Script {
+export class Script extends Action {
 
     private globalScript: boolean;
     
@@ -298,5 +344,27 @@ export class Script {
     }
 }
 
+export class Content extends Action implements ParsedValueContainer {
+    
+    private expr: string;
+
+    private contentBody: ParsedValue;
+    
+    getExpr(): string {
+        return this.expr;
+    }
+    
+    setExpr(expr: string) {
+        this.expr = expr;
+    }
+    
+    getParsedValue(): ParsedValue {
+        return this.contentBody;
+    }
+    
+    setParsedValue(contentBody: ParsedValue) {
+        this.contentBody = contentBody;
+    }
+}
 
 
