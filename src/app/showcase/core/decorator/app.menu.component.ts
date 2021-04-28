@@ -32,8 +32,6 @@ export class AppMenuComponent {
 
     @Input() active: boolean;
     
-    logo ="./assets/showcase/images/state-flow-logo-light.png";
-
     activeSubmenus: {[key: string]: boolean} = {};
 
     filteredRoutes: any[];

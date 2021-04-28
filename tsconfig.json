@@ -21,7 +21,8 @@
         "paths": {
             "@state-flow/state-flow": [
                 "src/state-flow/public-api.ts"
-            ]
+            ],
+            "assets/*": [ "src/assets/*" ]
         }
     },
     "angularCompilerOptions": {
