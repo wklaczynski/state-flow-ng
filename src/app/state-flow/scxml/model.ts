@@ -36,10 +36,10 @@ export class TransitionTarget {
     }
     
     setParent(parent: EnterableState) {
-        if (parent == null) {
+        if (!parent) {
             throw "Parent parameter cannot be null";
         }
-        if (this == parent) {
+        if (this.id === parent.id) {
             throw "Cannot set self as parent";
         }
         if (this.parent != parent) {
