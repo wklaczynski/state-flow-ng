@@ -39,9 +39,9 @@ export class TransitionTarget {
         if (parent == null) {
             throw "Parent parameter cannot be null";
         }
-        /*if (this == parent) {
+        if (this == parent) {
             throw "Cannot set self as parent";
-        }*/
+        }
         if (this.parent != parent) {
             this.parent = parent;
             this.updateDescendantsAncestors();
