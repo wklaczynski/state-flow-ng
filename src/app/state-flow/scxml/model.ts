@@ -7,6 +7,29 @@ export class Scxml {
     
 }
 
+export class ActionExecutionContext {
+    
+    
+}
+
+export enum ParsedValueType {
+  TEXT, JSON, NODE, NODE_LIST, NODE_TEXT  
+}
+
+export interface ParsedValue {
+    
+    getType(): ParsedValueType;
+
+    getValue(): any;
+}
+
+export interface ParsedValueContainer {
+
+    getParsedValue(): ParsedValue;
+
+    setParsedValue(parsedValue: ParsedValue);
+}
+
 export class TransitionTarget {
 
     private id: string;
@@ -37,10 +60,10 @@ export class TransitionTarget {
     
     setParent(parent: EnterableState) {
         if (!parent) {
-            throw "Parent parameter cannot be null";
+            throw new Error("Parent parameter cannot be null");
         }
         if (this.id === parent.id) {
-            throw "Cannot set self as parent";
+            throw new Error("Cannot set self as parent");
         }
         if (this.parent != parent) {
             this.parent = parent;
@@ -57,13 +80,6 @@ export class TransitionTarget {
         return this.getNumberOfAncestors() > context.getNumberOfAncestors()
                 && this.getAncestor(context.getNumberOfAncestors()) == context;
     }
-}
-
-
-
-export class ActionExecutionContext {
-    
-    
 }
 
 export class EnterableState extends TransitionTarget {
@@ -103,15 +119,15 @@ export class EnterableState extends TransitionTarget {
 
 export class Executable {
     
-    private actions:Action[];
+    private actions: Action[];
     
-    private parent:EnterableState;
+    private parent: EnterableState;
     
-    getActions():Action[] {
+    getActions(): Action[] {
         return this.actions;
     }
     
-    addAction(action:Action) {
+    addAction(action: Action) {
         if (action) {
             this.actions.push(action);
         }
@@ -164,5 +180,123 @@ export class Action {
         this.parent = parent;
     }
     
-    execute(exctx:ActionExecutionContext) {}    
+    getParentEnterableState(): EnterableState {
+        if (this.parent == null && this instanceof Script && this.isGlobalScript()) {
+            // global script doesn't have a EnterableState
+            return null;
+        } else if (!this.parent) {
+            throw new Error("Action "
+                    + this.constructor.name + " instance missing required parent TransitionTarget");
+        }
+        return this.parent.getParent();
+    }
+    
+    execute(exctx:ActionExecutionContext) {}
 }
+
+export class Assign extends Action implements ParsedValueContainer {
+    
+    private location: string;
+    
+    private src: string;
+    
+    private expr: string;
+
+    private assignValue: ParsedValue;
+
+    getLocation(): string {
+        return this.location;
+    }
+    
+    setLocation(location: string) {
+        this.location = location;
+    }
+    
+    getSrc(): string {
+        return this.src;
+    }
+    
+    setSrc(src: string) {
+        this.src = src;
+    }
+    
+    getExpr(): string {
+        return this.expr;
+    }
+    
+    setExpr(expr: string) {
+        this.expr = expr;
+    }
+    
+    getParsedValue(): ParsedValue {
+        return this.assignValue;
+    }
+    
+    setParsedValue(assignValue: ParsedValue) {
+        this.assignValue = assignValue;
+    }
+    
+    execute(exctx:ActionExecutionContext) {
+        var parentState: EnterableState = this.getParentEnterableState();
+        
+    }    
+}
+
+export class Cancel extends Action {
+    
+    private sentId: string;
+
+    private sentIdExpr: string;
+
+    getSentId(): string {
+        return this.sentId;
+    }
+    
+    setSendId(sentId: string) {
+        this.sentId = sentId;
+    }
+    
+    getSentIdExpr(): string {
+        return this.sentIdExpr;
+    }
+    
+    setSentIdExpr(sentIdExpr: string) {
+        this.sentIdExpr = sentIdExpr;
+    }
+}
+
+export class Script {
+
+    private globalScript: boolean;
+    
+    private script: string;
+    
+    private src: string;
+
+    isGlobalScript(): boolean {
+        return this.globalScript;
+    }
+    
+    setGlobalScript(globalScript: boolean) {
+        this.globalScript = globalScript;
+    }
+    
+    getScript(): string {
+        return this.script;
+    }
+    
+    setScript(script: string) {
+        this.script = script;
+    }
+    
+    getSrc(): string {
+        return this.src;
+    }
+    
+    setSrc(src: string) {
+        this.src = src;
+    }
+}
+
+
+
