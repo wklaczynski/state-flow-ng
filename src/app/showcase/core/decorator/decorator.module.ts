@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import { AppConfigService } from '../service/appconfigservice';
 import { VersionService } from '../service/versionservice';
