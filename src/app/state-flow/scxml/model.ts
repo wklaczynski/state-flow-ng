@@ -37,13 +37,18 @@ export interface ContentContainer {
     setContent(content: Content);
 }
 
+export interface ParamsContainer {
+
+    getParams(): Param[];
+}
+
 export class TransitionTarget {
 
     private id: string;
 
     private parent: EnterableState;
     
-    private ancestors: EnterableState[];
+    private ancestors: EnterableState[] = [];
     
     getId(): string {
         return this.id;
@@ -93,9 +98,9 @@ export class EnterableState extends TransitionTarget {
 
     private order: number = 0;
     
-    private onEntries: OnEntry[];
+    private onEntries: OnEntry[] = [];
 
-    private onExits: OnExit[];
+    private onExits: OnExit[] = [];
 
     getOrder(): number {
         return this.order;
@@ -126,7 +131,7 @@ export class EnterableState extends TransitionTarget {
 
 export class Executable {
     
-    private actions: Action[];
+    private actions: Action[] = [];
     
     private parent: EnterableState;
     
@@ -172,6 +177,39 @@ class OnExit extends Executable {
     
     setRaiseEvent(raiseEvent: boolean) {
         this.raiseEvent = raiseEvent;
+    }
+}
+
+export class Param {
+
+    private name: string;
+    
+    private location: string;
+    
+    private expr: string;
+    
+    getName(): string {
+        return this.name;
+    }
+    
+    setName(name: string) {
+        this.name = name;
+    }
+
+    getLocation(): string {
+        return this.location;
+    }
+    
+    setLocation(location: string) {
+        this.location = location;
+    }
+    
+    getExpr(): string {
+        return this.expr;
+    }
+    
+    setExpr(expr: string) {
+        this.expr = expr;
     }
 }
 
@@ -366,5 +404,141 @@ export class Content extends Action implements ParsedValueContainer {
         this.contentBody = contentBody;
     }
 }
+
+export class Data implements ParsedValueContainer {
+    
+    private id: string;
+
+    private src: string;
+
+    private expr: string;
+
+    private dataValue: ParsedValue;
+    
+    getId(): string {
+        return this.id;
+    }
+    
+    setId(id: string) {
+        this.id = id;
+    }
+    
+    getSrc(): string {
+        return this.src;
+    }
+    
+    setSrc(src: string) {
+        this.src = src;
+    }
+    
+    getExpr(): string {
+        return this.expr;
+    }
+    
+    setExpr(expr: string) {
+        this.expr = expr;
+    }
+    
+    getParsedValue(): ParsedValue {
+        return this.dataValue;
+    }
+    
+    setParsedValue(dataValue: ParsedValue) {
+        this.dataValue = dataValue;
+    }
+}
+
+export class DataModel {
+    
+    private data: Data[] = [];
+
+    getOnEntries(): Data[] {
+        return this.data;
+    }
+    
+    addOnEntry(data: Data) {
+       if (data) {
+           this.data.push(data);
+       }
+    }
+}
+
+export class DoneData {
+    
+    private content: Content;
+
+    private paramsList: Param[] = [];
+    
+    getContent(): Content {
+        return this.content;
+    }
+    
+    setContent(content: Content) {
+        this.content = content;
+    }
+
+    getParams(): Param[] {
+        return this.paramsList;
+    }
+    
+    addOnEntry(param: Param) {
+       if (param) {
+           this.paramsList.push(param);
+       }
+    }
+}
+
+export class ElseIf extends Action {
+    
+    private cond: string;
+
+    getCond(): string {
+        return this.cond;
+    }
+    
+    setCond(cond: string) {
+        this.cond = cond;
+    }
+    
+    execute(exctx:ActionExecutionContext) {
+        // nothing to do, the <if> container will take care of this
+    }    
+}
+
+export class Else extends ElseIf {
+    
+}
+
+export class If extends Action {
+
+    private cond: string;
+
+    private actions: Action[] = [];
+
+    private executable: boolean = false;
+
+    getCond(): string {
+        return this.cond;
+    }
+    
+    setCond(cond: string) {
+        this.cond = cond;
+    }
+    
+    getActions(): Action[] {
+        return this.actions;
+    }
+    
+    addAction(action: Action) {
+        if (action) {
+            this.actions.push(action);
+        }
+    }
+    
+    execute(exctx:ActionExecutionContext) {
+
+    }    
+}
+
 
 
