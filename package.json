@@ -9,7 +9,10 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
+        
+          
         "build:showcase": "ng build state-flow --prod --baseHref=/state-flow-ng",
+        "build:docs": "rm -rf docs/ && ng build state-flow --prod --base-href=/state-flow-ng --output-path=docs",
         "build:library": "ng build state-flow-library"
     },
     "private": true,
