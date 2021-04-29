@@ -55,6 +55,13 @@ export interface ParamsContainer {
     getParams(): Param[];
 }
 
+export interface ActionsContainer {
+
+    getActions(): Action[];
+
+    addAction(action: Action);
+}
+
 export class TransitionTarget {
 
     private id: string;
@@ -551,6 +558,31 @@ export class Parallel extends TransitionalState {
     }
 }
 
+export class Final extends TransitionalState {
+    
+    private doneData: DoneData;
+
+    public getParent(): State {
+        return super.getParent() as State;
+    }
+
+    public setParent(parent: State) {
+        super.setParent(parent);
+    }
+
+    public isAtomicState(): boolean {
+        return true;
+    }
+
+    public getDoneData(): DoneData {
+        return this.doneData;
+    }
+
+    public setDoneData(doneData: DoneData) {
+        this.doneData = doneData;
+    }
+}
+
 export class History extends TransitionTarget {
     
     private deep: boolean;
@@ -979,6 +1011,249 @@ export class If extends Action {
         if (action) {
             this.actions.push(action);
         }
+    }
+    
+    public execute(exctx:ActionExecutionContext) {
+
+    }    
+}
+
+export class Foreach extends Action {
+    
+    private array: string;
+    private item: string;
+    private index: string;
+
+    private actions: Action[] = new Array();
+
+    public getActions(): Action[] {
+        return this.actions;
+    }
+
+    public addAction(action: Action) {
+        if (action != null) {
+            this.actions.push(action);
+        }
+    }
+
+    public getArray(): string {
+        return this.array;
+    }
+
+    public setArray(array: string) {
+        this.array = array;
+    }
+
+    public getItem(): string {
+        return this.item;
+    }
+
+    public setItem(item: string) {
+        this.item = item;
+    }
+
+    public getIndex(): string {
+        return this.index;
+    }
+
+    public setIndex(index: string) {
+        this.index = index;
+    }
+
+    public execute(exctx: ActionExecutionContext) {
+
+    }
+}
+
+export class Raise extends Action {
+    
+    private event: string;
+
+    public getEvent(): string {
+        return this.event;
+    }
+    public setEvent(event: string) {
+        this.event = event;
+    }
+
+    public execute(exctx: ActionExecutionContext) {
+
+    }
+}
+
+export class Send extends Action {
+    
+    private static MILLIS = "ms";
+
+    private static SECONDS = "s";
+
+    private static MINUTES = "m";
+
+    private static MILLIS_IN_A_SECOND = 1000;
+
+    private static MILLIS_IN_A_MINUTE = 60000;
+
+    private id: string;
+
+    private idlocation: string;
+
+    private target: string;
+
+    private targetexpr: string;
+
+    private type: string;
+
+    private typeexpr: string;
+
+    private delay: string;
+
+    private delayexpr: string;
+
+    private hints: string;
+
+    private event: string;
+
+    private eventexpr: string;
+
+    private content: Content;
+
+    private paramsList: Param[] = new Array();
+
+    private namelist: string;
+
+    public getIdlocation(): string {
+        return this.idlocation;
+    }
+
+    public setIdlocation(idlocation: string) {
+        this.idlocation = idlocation;
+    }
+
+    public getDelay(): string {
+        return this.delay;
+    }
+
+    public setDelay(delay: string) {
+        this.delay = delay;
+    }
+
+    public getDelayexpr(): string {
+        return this.delayexpr;
+    }
+
+    public setDelayexpr(delayexpr: string) {
+        this.delayexpr = delayexpr;
+    }
+
+    public getHints(): string {
+        return this.hints;
+    }
+
+    public setHints(hints: string) {
+        this.hints = hints;
+    }
+
+    public getId(): string {
+        return this.id;
+    }
+
+    public setId(id: string) {
+        this.id = id;
+    }
+
+    public getTarget(): string {
+        return this.target;
+    }
+
+    public setTarget(target: string) {
+        this.target = target;
+    }
+
+    public getTargetexpr(): string {
+        return this.targetexpr;
+    }
+
+    public setTargetexpr(targetexpr: string) {
+        this.targetexpr = targetexpr;
+    }
+
+    public getType(): string {
+        return this.type;
+    }
+
+    public setType(type: string) {
+        this.type = type;
+    }
+
+    public getTypeexpr(): string {
+        return this.typeexpr;
+    }
+
+    public setTypeexpr(typeexpr: string) {
+        this.typeexpr = typeexpr;
+    }
+
+    public setEvent(event: string) {
+        this.event = event;
+    }
+
+    public getEvent(): string {
+        return this.event;
+    }
+
+    public getEventexpr(): string {
+        return this.eventexpr;
+    }
+
+    public setEventexpr(eventexpr: string) {
+        this.eventexpr = eventexpr;
+    }
+
+    public getContent(): Content {
+        return this.content;
+    }
+
+    public setContent(content: Content) {
+        this.content = content;
+    }
+
+    public getParams(): Param[] {
+        return this.paramsList;
+    }
+
+    public getNamelist(): string {
+        return this.namelist;
+    }
+
+    public setNamelist(namelist: string) {
+        this.namelist = namelist;
+    }
+
+    public execute(exctx: ActionExecutionContext) {
+
+    }
+}
+
+export class Var extends Action {
+
+    private name: string;
+
+    private expr: string;
+
+    public getExpr(): string {
+        return this.expr;
+    }
+
+    public setExpr(expr: string) {
+        this.expr = expr;
+    }
+
+    public getName(): string {
+        return this.name;
+    }
+
+    public setName(name: string) {
+        this.name = name;
     }
     
     public execute(exctx:ActionExecutionContext) {
