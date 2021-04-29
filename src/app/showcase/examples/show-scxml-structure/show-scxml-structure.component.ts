@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {  } from '@state-flow/scxml/model';
 
 @Component({
   selector: 'app-show-scxml-structure',
@@ -10,6 +11,7 @@ export class ShowScxmlStructureComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

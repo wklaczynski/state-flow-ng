@@ -19,13 +19,7 @@
             "dom"
         ],
         "paths": {
-            "@state-flow/state-flow": [
-                "src/state-flow/public-api.ts"
-            ],
-            "test": [
-              "dist/test/test",
-              "dist/test"
-            ]
+            "@state-flow/*": ["src/app/state-flow/*/public_api"]
         }
     },
     "angularCompilerOptions": {
