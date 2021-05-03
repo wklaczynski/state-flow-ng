@@ -19,8 +19,8 @@
         "types": [
         ],
         "paths": {
-            "state-flow/*": [
-                "src/app/state-flow/*/public_api"
+            "@ssoft/state-flow/*": [
+                "src/libs/state-flow/*/public_api"
             ]
         }
     },

@@ -10,7 +10,7 @@
         "experimentalDecorators": true,
         "importHelpers": true,
         "target": "es2015",
-        "module": "es2020",        
+        "module": "es2020",
         "typeRoots": [
             "node_modules/@types"
         ],
@@ -19,8 +19,11 @@
             "dom"
         ],
         "paths": {
-            "state-flow/*": [
-                "src/app/state-flow/*/public_api.ts"
+            "@ssoft/state-flow/*": [
+                "src/libs/state-flow/*/public_api"
+            ],
+            "@ssoft/eslint-package/*": [
+                "src/libs/eslint-package/*/public_api"
             ]
         }
     },

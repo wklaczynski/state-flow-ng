@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { PathResolver } from 'state-flow/scxml';
+import { PathResolver } from '@ssoft/state-flow/scxml';
 
 export class Scxml implements Observable {
 

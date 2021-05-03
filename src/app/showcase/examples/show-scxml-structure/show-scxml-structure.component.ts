@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Scxml } from '@state-flow/scxml/model';
-import { ScxmlReader } from 'src/app/state-flow/scxml/io';
+import { ScxmlReader } from 'src/libs/state-flow/scxml/io';
 
 @Component({
   selector: 'app-show-scxml-structure',

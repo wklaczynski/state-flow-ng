@@ -5,15 +5,47 @@
   "projects": {
     "state-flow-library": {
       "projectType": "library",
-      "root": "src/app/state-flow",
-      "sourceRoot": "src/app/state-flow",
+      "root": "src/libs/state-flow",
+      "sourceRoot": "src/libs/state-flow",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "src/app/state-flow/ng-package.json",
-            "tsConfig": "src/app/state-flow/tsconfig.lib.json"
+            "project": "src/libs/state-flow/ng-package.json",
+            "tsConfig": "src/libs/state-flow/tsconfig.lib.json"
+          }
+        }
+      }
+    },
+    "eslint-package": {
+      "projectType": "library",
+      "root": "src/libs/eslint-package",
+      "sourceRoot": "src/libs/eslint-package/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "src/libs/eslint-package/tsconfig.lib.json",
+            "project": "src/libs/eslint-package/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "src/libs/eslint-package/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "src/libs/eslint-package/tsconfig.lib.json",
+              "src/libs/eslint-package/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
