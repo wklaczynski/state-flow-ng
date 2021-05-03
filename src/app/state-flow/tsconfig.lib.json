@@ -9,7 +9,7 @@
         "emitDecoratorMetadata": false,
         "experimentalDecorators": true,
         "moduleResolution": "node",
-        "outDir": "../../../dist/stateflow",
+        "outDir": "../../../dist/state-flow",
         "rootDir": ".",
         "lib": [
             "es2016",
@@ -19,7 +19,7 @@
         "types": [
         ],
         "paths": {
-            "@state-flow/*": [
+            "state-flow/*": [
                 "src/app/state-flow/*/public_api"
             ]
         }

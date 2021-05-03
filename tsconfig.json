@@ -19,18 +19,13 @@
             "dom"
         ],
         "paths": {
-            "@state-flow/*": [
-                "src/app/state-flow/*/public_api"
+            "state-flow/*": [
+                "src/app/state-flow/*/public_api.ts"
             ]
-        },
-        "plugins": [
-            {
-              "name": "@manuth/typescript-eslint-plugin",
-              "ignoreJavaScript": true,
-              "configFile": "custom.eslintrc.js"
-            }]        
+        }
     },
     "angularCompilerOptions": {
-        "enableI18nLegacyMessageIdFormat": false
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictTemplates": true,
     }
 }
