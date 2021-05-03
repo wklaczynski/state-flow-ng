@@ -1,0 +1,16 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "../../../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../../../dist/eslint/eslint-plugin",
+    "target": "es2015",
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
+    "resolveJsonModule": true,
+    "types": [],
+  },
+  "angularCompilerOptions": {},
+  "exclude": [],
+  "include": ["src"]
+}

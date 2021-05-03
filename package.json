@@ -11,7 +11,8 @@
     "e2e": "ng e2e",
     "build:showcase": "ng build showcase --prod --base-href=/state-flow-ng",
     "build:docs": "rm -rf docs/ && ng build showcase --prod --base-href=/state-flow-ng/ --deploy-url=/state-flow-ng/ --output-path=docs",
-    "build:library": "ng build state-flow"
+    "build:library": "ng build state-flow",
+    "build:eslint-package": "ng build eslint-plugin"
   },
   "private": true,
   "release": {
@@ -62,9 +63,11 @@
     "@typescript-eslint/parser": "4.16.1",
     "del": "^2.2.2",
     "eslint": "^7.6.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "latest",
     "eslint-plugin-jsdoc": "latest",
     "eslint-plugin-prefer-arrow": "latest",
+    "eslint-plugin-prettier": "^3.4.0",
     "fast-xml-parser": "^3.19.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",

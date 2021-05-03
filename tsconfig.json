@@ -22,9 +22,8 @@
             "@ssoft/state-flow/*": [
                 "src/libs/state-flow/*/public_api"
             ],
-            "@ssoft/eslint-package/*": [
-                "src/libs/eslint-package/src/libs"
-            ]
+            "@ssoft/eslint-plugin": ["dist/eslint/eslint-plugin/index"],
+            "@ssoft/eslint-plugin/*": ["src/libs/eslint-packages/eslint-plugin/*"]
         }
     },
     "angularCompilerOptions": {
