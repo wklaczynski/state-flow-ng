@@ -4,11 +4,9 @@
   "description": "Angular State Flow Eslint Package",
   "author": "Waldemar Kłaczyński (Saba Soft)",
   "license": "MIT",
-  "dependencies": {
-    "@typescript-eslint/experimental-utils": "4.16.1"
-  },
   "devDependencies": {
-    "@angular-eslint/utils": "4.2.0"
+    "@angular-eslint/utils": "4.2.0",
+    "@typescript-eslint/experimental-utils": "4.16.1"
   },
   "peerDependencies": {
     "@angular/compiler": ">= 11.2.0 < 12.0.0",

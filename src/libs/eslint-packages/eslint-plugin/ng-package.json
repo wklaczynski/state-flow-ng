@@ -1,7 +1,7 @@
 {
   "$schema": "../../../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../../../../dist/eslint/eslint-plugin",
+  "dest": "../../../../dist/eslint/eslint-plugin",
   "lib": {
-    "entryFile": "src/libs.ts"
+    "entryFile": "src/index.ts"
   }
 }
