@@ -13,12 +13,12 @@ import { Subscription } from 'rxjs';
     animations: [
         trigger('overlayMenuAnimation', [
             transition(':enter', [
-                style({opacity: 0, transform: 'scaleY(0.8)'}),
+                style({ opacity: 0, transform: 'scaleY(0.8)' }),
                 animate('.12s cubic-bezier(0, 0, 0.2, 1)', style({ opacity: 1, transform: '*' })),
-              ]),
-              transition(':leave', [
+            ]),
+            transition(':leave', [
                 animate('.1s linear', style({ opacity: 0 }))
-              ])
+            ])
         ])
     ]
 })
@@ -38,7 +38,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
     versions: any[];
 
-    constructor(private router: Router, private versionService: VersionService, private configService: AppConfigService) {}
+    constructor(private router: Router, private versionService: VersionService, private configService: AppConfigService) { }
 
     ngOnInit() {
         this.config = this.configService.config;
@@ -61,7 +61,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         if (!this.outsideClickListener) {
             this.outsideClickListener = (event) => {
                 if (this.isOutsideTopbarMenuClicked(event)) {
-                    this.activeMenuIndex =  null;
+                    this.activeMenuIndex = null;
                 }
             };
 
@@ -86,14 +86,14 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
     }
 
     onOverlayMenuEnter(event: AnimationEvent) {
-        switch(event.toState) {
+        switch (event.toState) {
             case 'visible':
                 this.bindOutsideClickListener();
-            break;
+                break;
 
             case 'void':
                 this.unbindOutsideClickListener();
-            break;
+                break;
         }
     }
 

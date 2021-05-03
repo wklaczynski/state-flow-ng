@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, OnDestroy} from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from '../service/appconfigservice';
 import { AppConfig } from '../domain/appconfig';
@@ -13,8 +13,8 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     active: boolean;
 
-    scale: number = 14;
-    scales: number[] = [12,13,14,15,16];
+    scale = 14;
+    scales: number[] = [12, 13, 14, 15, 16];
 
     outsideClickListener: any;
 
@@ -22,38 +22,33 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     subscription: Subscription;
 
-    constructor(private el: ElementRef, private router: Router, private configService: AppConfigService) {}
+    constructor(private el: ElementRef, private router: Router, private configService: AppConfigService) { }
 
     ngOnInit() {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => {
             this.config = config;
-            if (this.config.theme === 'nano')
-                this.scale = 12;
-            else
-                this.scale = 14;
+            if (this.config.theme === 'nano') { this.scale = 12; }
+            else { this.scale = 14; }
 
             this.applyScale();
         });
 
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
-                this.active = false
-             }
+                this.active = false;
+            }
         });
 
-        if (this.config.theme === 'nano')
-            this.scale = 12;
+        if (this.config.theme === 'nano') { this.scale = 12; }
     }
 
     toggleConfigurator(event: Event) {
         this.active = !this.active;
         event.preventDefault();
 
-        if (this.active)
-            this.bindOutsideClickListener();
-        else
-            this.unbindOutsideClickListener();
+        if (this.active) { this.bindOutsideClickListener(); }
+        else { this.unbindOutsideClickListener(); }
     }
 
     hideConfigurator(event) {
@@ -63,9 +58,9 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     }
 
     changeTheme(event: Event, theme: string, dark: boolean) {
-        let themeElement = document.getElementById('theme-link');
+        const themeElement = document.getElementById('theme-link');
         themeElement.setAttribute('href', themeElement.getAttribute('href').replace(this.config.theme, theme));
-        this.configService.updateConfig({...this.config, ...{theme, dark}});
+        this.configService.updateConfig({ ...this.config, ...{ theme, dark } });
         event.preventDefault();
     }
 

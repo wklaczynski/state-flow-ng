@@ -1,16 +1,16 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "baseUrl": "./",
         "outDir": "./dist/out-tsc",
+        "baseUrl": "./",
         "sourceMap": true,
         "declaration": false,
-        "module": "es2020",
         "moduleResolution": "node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "importHelpers": true,
         "target": "es2015",
+        "module": "es2020",        
         "typeRoots": [
             "node_modules/@types"
         ],
@@ -19,8 +19,16 @@
             "dom"
         ],
         "paths": {
-            "@state-flow/*": ["src/app/state-flow/*/public_api"]
-        }
+            "@state-flow/*": [
+                "src/app/state-flow/*/public_api"
+            ]
+        },
+        "plugins": [
+            {
+              "name": "@manuth/typescript-eslint-plugin",
+              "ignoreJavaScript": true,
+              "configFile": "custom.eslintrc.js"
+            }]        
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false

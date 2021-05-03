@@ -2,9 +2,8 @@
   "name": "state-flow",
   "version": "1.0.0",
   "description": "Angular state-flow",
-  "author": "@ng-select/ng-select",
+  "author": "wklaczynski",
   "license": "MIT",
-  "name": "state-flow",
   "engines": {
     "node": ">= 6.9.0",
     "npm": ">= 3.0.0"
@@ -12,19 +11,13 @@
   "keywords": [
     "angular"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/primefaces/primeng"
-  },
-  "bugs": {
-    "url": "https://github.com/primefaces/primeng/issues"
-  },
   "module": "state-flow.js",
   "typings": "state-flow.d.ts",
   "peerDependencies": {
     "@angular/common": ">=11.0.0 <12.0.0",
     "@angular/core": ">=11.0.0 <12.0.0",
-    "@angular/forms": ">=11.0.0 <12.0.0"
+    "@angular/forms": ">=11.0.0 <12.0.0",
+    "fast-xml-parser": ">=3.19.0 <3.20.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"

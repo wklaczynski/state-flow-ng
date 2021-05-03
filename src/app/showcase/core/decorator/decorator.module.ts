@@ -31,9 +31,8 @@ import { AppFooterComponent } from './app.footer.component';
     RouterModule
   ],
   providers: [
-      VersionService,
-      AppConfigService
-  ],
-  
+    VersionService,
+    AppConfigService
+  ]
 })
 export class DecoratorModule { }

@@ -11,15 +11,19 @@ export class AppConfigService {
         inputStyle: 'outlined',
         ripple: true
     };
-    
+
+    public configUpdate$;
+
     private configUpdate = new Subject<AppConfig>();
-    
-    configUpdate$ = this.configUpdate.asObservable();
-    
+
+    constructor() {
+        this.configUpdate$ = this.configUpdate.asObservable();
+    }
+
     updateConfig(config: AppConfig) {
         this.config = config;
         this.configUpdate.next(config);
-}
+    }
 
     getConfig() {
         return this.config;

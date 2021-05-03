@@ -8,9 +8,9 @@ describe('ShowScxmlStructureComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShowScxmlStructureComponent ]
+      declarations: [ShowScxmlStructureComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

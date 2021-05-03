@@ -1,4 +1,4 @@
-import {Component, Input, EventEmitter, Output} from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-news',
@@ -7,13 +7,13 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
 })
 export class AppNewsComponent {
 
-    @Input() active: boolean;
+  @Input() active: boolean;
 
-    @Output() onNewsHide: EventEmitter<any> = new EventEmitter();
+  //@Output() onNewsHide: EventEmitter<any> = new EventEmitter();
 
-    hideNews(event: Event) {
-        this.onNewsHide.emit();
-        event.preventDefault();
-    }
-    
+  hideNews(event: Event) {
+    //this.onNewsHide.emit();
+    event.preventDefault();
+  }
+
 }

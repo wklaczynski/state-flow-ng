@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {  } from '@state-flow/scxml/model';
+import { Scxml } from '@state-flow/scxml/model';
+import { ScxmlReader } from 'src/app/state-flow/scxml/io';
 
 @Component({
   selector: 'app-show-scxml-structure',
@@ -11,6 +12,18 @@ export class ShowScxmlStructureComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.loadScxmlData();
+  }
+
+  loadScxmlData(): void {
+
+    const scxml = ScxmlReader.read('/my/file');
+
+
+
+
+
+
 
   }
 

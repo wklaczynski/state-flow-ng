@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 import { ShowScxmlStructureRoutingModule } from './show-scxml-structure-routing.module';
 import { ShowScxmlStructureComponent } from './show-scxml-structure.component';
@@ -11,6 +12,7 @@ import { ShowScxmlStructureComponent } from './show-scxml-structure.component';
   ],
   imports: [
     CommonModule,
+    ButtonModule,
     ShowScxmlStructureRoutingModule
   ],
   exports: [

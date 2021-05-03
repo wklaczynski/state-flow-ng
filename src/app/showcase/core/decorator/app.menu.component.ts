@@ -7,6 +7,7 @@ import { AppConfigService } from '../service/appconfigservice';
 import { Subscription } from 'rxjs';
 import { AppConfig } from '../domain/appconfig';
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 declare let gtag: Function;
 
 @Component({
@@ -31,8 +32,8 @@ declare let gtag: Function;
 export class AppMenuComponent {
 
     @Input() active: boolean;
-    
-    activeSubmenus: {[key: string]: boolean} = {};
+
+    activeSubmenus: { [key: string]: boolean } = {};
 
     filteredRoutes: any[];
 
@@ -42,21 +43,21 @@ export class AppMenuComponent {
 
     routes = [
         {
-            label: 'General', value: 'general', 
+            label: 'General', value: 'general',
             items: [
-                {label: 'Setup', value: '/setup'},
+                { label: 'Setup', value: '/setup' },
             ]
         },
         {
-            label: 'Examles', value: 'examles', 
+            label: 'Examles', value: 'examles',
             items: [
-                {label: 'SCXML Structure', value: '/example/scxml-structure'}
+                { label: 'SCXML Structure', value: '/example/scxml-structure' }
             ]
         },
         {
-            label: 'Utilities', value: 'utilities', 
+            label: 'Utilities', value: 'utilities',
             items: [
-                {label: 'Develop', value: '/develop'}
+                { label: 'Develop', value: '/develop' }
             ]
         },
     ];
@@ -67,36 +68,37 @@ export class AppMenuComponent {
 
     subscription: Subscription;
 
-    constructor(private el: ElementRef,private router: Router, private filterService: FilterService, private configService: AppConfigService) {
+    constructor(private el: ElementRef, private router: Router,
+         private filterService: FilterService, private configService: AppConfigService) {
         this.config = this.configService.config;
         this.subscription = this.configService.configUpdate$.subscribe(config => this.config = config);
         router.events.subscribe((routerEvent) => {
-                if (routerEvent instanceof NavigationStart && (routerEvent.navigationTrigger ==="popstate" || this.scrollable)){
-                    let routeUrl = routerEvent.url;
+            if (routerEvent instanceof NavigationStart && (routerEvent.navigationTrigger === 'popstate' || this.scrollable)) {
+                const routeUrl = routerEvent.url;
 
-                    if (this.isSubmenu(routeUrl) && !this.isSubmenuActive('/'+routeUrl.split('/')[1])){
-                        this.submenuRouting = true;
-                    }
+                if (this.isSubmenu(routeUrl) && !this.isSubmenuActive('/' + routeUrl.split('/')[1])) {
+                    this.submenuRouting = true;
+                }
 
-                    if (routerEvent.navigationTrigger ==="popstate") {
-                        this.scrollable = true;
-                    }
+                if (routerEvent.navigationTrigger === 'popstate') {
+                    this.scrollable = true;
                 }
-    
-                if (routerEvent instanceof NavigationEnd && !this.submenuRouting && this.scrollable){
-                    setTimeout(() => {
-                        this.scrollToSelectedRoute();
-                    },1);
-                }
+            }
+
+            if (routerEvent instanceof NavigationEnd && !this.submenuRouting && this.scrollable) {
+                setTimeout(() => {
+                    this.scrollToSelectedRoute();
+                }, 1);
+            }
         });
     }
 
     filterGroupedRoute(event) {
-        let query = event.query;
-        let filteredGroups = [];
+        const query = event.query;
+        const filteredGroups = [];
 
-        for (let optgroup of this.routes) {
-            let filteredSubOptions = this.filterService.filter(optgroup.items, ['value'], query, "contains");
+        for (const optgroup of this.routes) {
+            const filteredSubOptions = this.filterService.filter(optgroup.items, ['value'], query, 'contains');
             if (filteredSubOptions && filteredSubOptions.length) {
                 filteredGroups.push({
                     label: optgroup.label,
@@ -126,16 +128,16 @@ export class AppMenuComponent {
     }
 
     scrollToSelectedRoute() {
-        let routeEl = DomHandler.findSingle(this.el.nativeElement, '.router-link-exact-active');
+        const routeEl = DomHandler.findSingle(this.el.nativeElement, '.router-link-exact-active');
 
-        if (routeEl) 
-            routeEl.scrollIntoView({inline: 'start'});
+        if (routeEl)
+            {routeEl.scrollIntoView({ inline: 'start' });}
 
         this.scrollable = false;
     }
 
     toggleSubmenu(event: Event, name: string) {
-        this.activeSubmenus[name] = this.activeSubmenus[name] ? false: true;
+        this.activeSubmenus[name] = this.activeSubmenus[name] ? false : true;
         event.preventDefault();
     }
 

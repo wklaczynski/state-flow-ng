@@ -1,36 +1,219 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+import { PathResolver } from '../api';
 
+export class Scxml implements Observable {
 
-export class Scxml {
-    
-    
-    
-    
+    public static GENERATED_TT_ID_PREFIX = '_generated_tt_id_';
+
+    private static SCXML_OBSERVABLE_ID = 0;
+
+    private static META_ELEMENT_IDMAP = 'elment-idmap';
+
+    private version: string;
+
+    private initialTransition: SimpleTransition;
+
+    private initial: string;
+
+    private name: string;
+
+    private profile: string;
+
+    private exmode: string;
+
+    private lateBinding: boolean;
+
+    private datamodelName: string;
+
+    private datamodel: DataModel;
+
+    private globalScript: Script;
+
+    private pathResolver: PathResolver;
+
+    private children: EnterableState[] = new Array();
+
+    private targets: Map<string, TransitionTarget> = new Map();
+
+    private namespaces: Map<string, string> = new Map();
+
+    private ttNextId: number;
+
+    private metadata: Map<string, any> = new Map();
+
+    constructor() {
+        this.metadata.set(Scxml.META_ELEMENT_IDMAP, new Map());
+    }
+
+    getObservableId(): number {
+        return Scxml.SCXML_OBSERVABLE_ID;
+    }
+
+    public generateTransitionTargetId(): string {
+        return Scxml.GENERATED_TT_ID_PREFIX + this.ttNextId++;
+    }
+
+    public getGlobalScript(): Script {
+        return this.globalScript;
+    }
+
+    public setGlobalScript(script: Script) {
+        this.globalScript = script;
+    }
+
+    public getPathResolver(): PathResolver {
+        return this.pathResolver;
+    }
+
+    public setPathResolver(pathResolver: PathResolver) {
+        this.pathResolver = pathResolver;
+    }
+
+    public getInitialTransition(): SimpleTransition {
+        return this.initialTransition;
+    }
+
+    public setInitialTransition(initialTransition: SimpleTransition) {
+        this.initialTransition = initialTransition;
+    }
+
+    public getDatamodel(): DataModel {
+        return this.datamodel;
+    }
+
+    public setDatamodel(datamodel: DataModel) {
+        this.datamodel = datamodel;
+    }
+
+    public setLateBinding(lateBinding: boolean) {
+        this.lateBinding = lateBinding;
+    }
+
+    public isLateBinding() {
+        return this.lateBinding;
+    }
+
+    public getChildren(): EnterableState[] {
+        return this.children;
+    }
+
+    public getFirstChild(): EnterableState {
+        if (this.children.length > 0) {
+            return this.children[0];
+        }
+        return null;
+    }
+
+    public addChild(es: EnterableState) {
+        this.children.push(es);
+    }
+
+    public getTargets(): Map<string, TransitionTarget> {
+        return this.targets;
+    }
+
+    public addTarget(target: TransitionTarget) {
+        this.targets.set(target.getId(), target);
+    }
+
+    public getVersion(): string {
+        return this.version;
+    }
+
+    public setVersion(version: string) {
+        this.version = version;
+    }
+
+    public getNamespaces(): Map<string, string> {
+        return this.namespaces;
+    }
+
+    public setNamespaces(namespaces: Map<string, string>) {
+        this.namespaces = namespaces;
+    }
+
+    public getMetadata(): Map<string, any> {
+        return this.metadata;
+    }
+
+    public setMetadata(metadata: Map<string, any>) {
+        this.metadata = metadata;
+    }
+
+    public getInitial(): string {
+        return this.initial;
+    }
+
+    public setInitial(initial) {
+        this.initial = initial;
+    }
+
+    public getName(): string {
+        return this.name;
+    }
+
+    public setName(name: string) {
+        this.name = name;
+    }
+
+    public getProfile(): string {
+        return this.profile;
+    }
+
+    public setProfile(profile: string) {
+        this.profile = profile;
+    }
+
+    public getExmode(): string {
+        return this.exmode;
+    }
+
+    public setExmode(exmode: string) {
+        this.exmode = exmode;
+    }
+
+    public getDatamodelName(): string {
+        return this.datamodelName;
+    }
+
+    public setDatamodelName(datamodelName: string) {
+        this.datamodelName = datamodelName;
+    }
+
+    public findElement(expr): any {
+        if (expr.length === 0) {
+            throw new Error('');
+        }
+        const idMap = this.metadata.get(Scxml.META_ELEMENT_IDMAP);
+        const result = idMap.get(expr);
+        return result;
+    }
 }
 
 export class ActionExecutionContext {
-    
-    
+
+
 }
 
 export enum ParsedValueType {
-  TEXT, JSON, NODE, NODE_LIST, NODE_TEXT  
+    TEXT, JSON, NODE, NODE_LIST, NODE_TEXT
 }
 
 export enum TransitionType {
-  internal, external  
+    internal, external
 }
 
 export class ModelException extends Error {
-    
-}    
+
+}
 
 export interface Observable {
-    
+
     getObservableId(): number;
 }
 
 export interface ParsedValue {
-    
+
     getType(): ParsedValueType;
 
     getValue(): any;
@@ -67,57 +250,57 @@ export class TransitionTarget {
     private id: string;
 
     private parent: EnterableState;
-    
+
     private ancestors: EnterableState[] = [];
-    
+
     public getId(): string {
         return this.id;
     }
-    
+
     public setId(id: string) {
         this.id = id;
     }
-    
-    public getNumberOfAncestors():number {
+
+    public getNumberOfAncestors(): number {
         return this.ancestors.length;
     }
-    
+
     public getAncestor(level: number): EnterableState {
         return this.ancestors[level];
     }
-    
+
     public getParent(): EnterableState {
         return this.parent;
     }
-    
+
     public setParent(parent: EnterableState) {
         if (!parent) {
-            throw new Error("Parent parameter cannot be null");
+            throw new Error('Parent parameter cannot be null');
         }
         if (this.id === parent.id) {
-            throw new Error("Cannot set self as parent");
+            throw new Error('Cannot set self as parent');
         }
-        if (this.parent != parent) {
+        if (this.parent !== parent) {
             this.parent = parent;
             this.updateDescendantsAncestors();
         }
     }
-    
+
     updateDescendantsAncestors() {
         this.ancestors = this.parent.ancestors.slice();
         this.ancestors.push(this.parent);
     }
-    
+
     public isDescendantOf(context: TransitionTarget): boolean {
         return this.getNumberOfAncestors() > context.getNumberOfAncestors()
-                && this.getAncestor(context.getNumberOfAncestors()) == context;
+            && this.getAncestor(context.getNumberOfAncestors()) === context;
     }
 }
 
 export class EnterableState extends TransitionTarget implements Observable {
 
-    private order: number = 0;
-    
+    private order = 0;
+
     private onEntries: OnEntry[] = [];
 
     private onExits: OnExit[] = [];
@@ -127,33 +310,33 @@ export class EnterableState extends TransitionTarget implements Observable {
     public getOrder(): number {
         return this.order;
     }
-    
+
     public setOrder(order: number) {
         this.order = order;
     }
 
-    public getOnEntries(): OnEntry[]{
+    public getOnEntries(): OnEntry[] {
         return this.onEntries;
     }
-    
+
     public addOnEntry(onEntry: OnEntry) {
         onEntry.setParent(this);
         this.onEntries.push(onEntry);
     }
 
-    public getOnExits(): OnExit[]{
+    public getOnExits(): OnExit[] {
         return this.onExits;
     }
-    
+
     public addOnExit(onExits: OnExit) {
         onExits.setParent(this);
         this.onExits.push(onExits);
     }
-    
+
     public getObservableId(): number {
         return this.observableId;
     }
-    
+
     public setObservableId(observableId: number) {
         this.observableId = observableId;
     }
@@ -162,7 +345,7 @@ export class EnterableState extends TransitionTarget implements Observable {
 export class TransitionalState extends EnterableState {
 
     private transitions: Transition[] = [];
-    
+
     private datamodel: DataModel;
 
     private history: History[] = [];
@@ -173,32 +356,32 @@ export class TransitionalState extends EnterableState {
 
     updateDescendantsAncestors() {
         super.updateDescendantsAncestors();
-        for (var h of this.history) {
+        for (const h of this.history) {
             // reset ancestors
             h.updateDescendantsAncestors();
         }
-        for (var child of this.children) {
+        for (const child of this.children) {
             child.updateDescendantsAncestors();
         }
     }
-    
+
     public getParent(): TransitionalState {
         return super.getParent() as TransitionalState;
     }
-    
+
     public setParent(parent: TransitionalState) {
         super.setParent(parent);
     }
-    
+
     public getAncestor(level: number): TransitionalState {
         return super.getAncestor(level) as TransitionalState;
     }
-    
+
     public getTransitionsListByEvent(event: string): Transition[] {
-        var matchingTransitions: Transition[] = null; // since we returned null upto v0.6
-        for (var t of this.transitions) {
+        let matchingTransitions: Transition[] = null; // since we returned null upto v0.6
+        for (const t of this.transitions) {
             if ((event == null && t.getEvent() == null)
-                    || (event != null && event === t.getEvent())) {
+                || (event != null && event === t.getEvent())) {
                 if (matchingTransitions == null) {
                     matchingTransitions = new Array();
                 }
@@ -207,35 +390,35 @@ export class TransitionalState extends EnterableState {
         }
         return matchingTransitions;
     }
-    
+
     public faddTransition(transition: Transition) {
         this.transitions.push(transition);
         transition.setParent(this);
     }
-    
+
     public getTransitionsList(): Transition[] {
         return this.transitions;
     }
-    
+
     public getDatamodel(): DataModel {
         return this.datamodel;
     }
-    
+
     public setDatamodel(datamodel: DataModel) {
         this.datamodel = datamodel;
     }
-    
+
     public getHistory(): History[] {
         return this.history;
     }
-    
+
     public addHistory(history: History) {
         if (history) {
             this.history.push(history);
         }
     }
-    
-    public hasHistory():boolean {
+
+    public hasHistory(): boolean {
         return this.history.length > 0;
     }
 
@@ -247,7 +430,7 @@ export class TransitionalState extends EnterableState {
         invoke.setParentEnterableState(this, this.invokes.length);
         this.invokes.push(invoke);
     }
-   
+
     public getChildren(): EnterableState[] {
         return this.children;
     }
@@ -259,25 +442,25 @@ export class TransitionalState extends EnterableState {
 }
 
 export class Executable {
-    
+
     private actions: Action[] = [];
-    
+
     private parent: EnterableState;
-    
+
     public getActions(): Action[] {
         return this.actions;
     }
-    
+
     public addAction(action: Action) {
         if (action) {
             this.actions.push(action);
         }
     }
-    
+
     public getParent(): EnterableState {
         return this.parent;
     }
-    
+
     public setParent(parent: EnterableState) {
         this.parent = parent;
     }
@@ -290,7 +473,7 @@ class OnEntry extends Executable {
     public isRaiseEvent(): boolean {
         return this.raiseEvent;
     }
-    
+
     public setRaiseEvent(raiseEvent: boolean) {
         this.raiseEvent = raiseEvent;
     }
@@ -303,7 +486,7 @@ class OnExit extends Executable {
     public isRaiseEvent(): boolean {
         return this.raiseEvent;
     }
-    
+
     public setRaiseEvent(raiseEvent: boolean) {
         this.raiseEvent = raiseEvent;
     }
@@ -312,11 +495,11 @@ class OnExit extends Executable {
 class SimpleTransition extends Executable implements Observable {
 
     private type: TransitionType;
-    
+
     private transitionDomain: TransitionalState;
-    
+
     private scxmlTransitionDomain: boolean;
-    
+
     private typeInternal: boolean;
 
     private targets: TransitionTarget[] = [];
@@ -325,18 +508,14 @@ class SimpleTransition extends Executable implements Observable {
 
     private observableId: number;
 
-    private isCompoundStateParent(ts: TransitionalState): boolean {
-        return ts != null && ts instanceof State && ts.isComposite();
-    }
-
     public isTypeInternal(): boolean {
-        if (this.typeInternal == null) {
+        if (this.typeInternal) {
 
             // derive typeInternal
-            this.typeInternal = TransitionType.internal == this.type && this.isCompoundStateParent(this.getParent() as TransitionalState);
+            this.typeInternal = TransitionType.internal === this.type && this.isCompoundStateParent(this.getParent() as TransitionalState);
 
             if (this.typeInternal && this.targets.length > 0) {
-                for (var tt of this.targets) {
+                for (const tt of this.targets) {
                     if (!tt.isDescendantOf(this.getParent())) {
                         this.typeInternal = false;
                         break;
@@ -346,27 +525,27 @@ class SimpleTransition extends Executable implements Observable {
         }
         return this.typeInternal;
     }
-    
+
     public getTransitionDomain(): TransitionalState {
-        var ts = this.transitionDomain;
+        let ts = this.transitionDomain;
         if (ts == null && this.targets.length > 0 && !this.scxmlTransitionDomain) {
 
             if (this.getParent() != null && this.getParent() instanceof TransitionalState) {
                 if (this.isTypeInternal()) {
-                    this.transitionDomain = <TransitionalState>this.getParent();
+                    this.transitionDomain = this.getParent() as TransitionalState;
                 }
                 else {
                     // findLCCA
-                    for (let i = this.getParent().getNumberOfAncestors()-1; i > -1; i--) {
+                    for (let i = this.getParent().getNumberOfAncestors() - 1; i > -1; i--) {
                         if (this.isCompoundStateParent(this.getParent().getAncestor(i) as TransitionalState)) {
-                            var allDescendants = true;
-                            for (var tt of this.targets) {
+                            let allDescendants = true;
+                            for (const tt of this.targets) {
                                 if (i >= tt.getNumberOfAncestors()) {
                                     i = tt.getNumberOfAncestors();
                                     allDescendants = false;
                                     break;
                                 }
-                                if (tt.getAncestor(i) != this.getParent().getAncestor(i)) {
+                                if (tt.getAncestor(i) !== this.getParent().getAncestor(i)) {
                                     allDescendants = false;
                                     break;
                                 }
@@ -385,41 +564,46 @@ class SimpleTransition extends Executable implements Observable {
             }
         }
         return ts;
-    }    
-    
+    }
+
     public getType(): TransitionType {
         return this.type;
     }
-    
+
     public setType(type: TransitionType) {
         this.type = type;
     }
-    
+
     public getNext(): string {
         return this.next;
     }
-    
+
     public setNext(next: string) {
         this.next = next;
     }
-    
+
     public getTargets(): TransitionTarget[] {
         return this.targets;
     }
-    
+
     public getObservableId(): number {
         return this.observableId;
     }
-    
+
     public setObservableId(observableId: number) {
         this.observableId = observableId;
     }
+
+    private isCompoundStateParent(ts: TransitionalState): boolean {
+        return ts != null && ts instanceof State && ts.isComposite();
+    }
+
 }
 
 export class Transition extends SimpleTransition {
 
     private event: string;
-    
+
     private events: string[] = [];
 
     private noEvents: boolean;
@@ -428,30 +612,30 @@ export class Transition extends SimpleTransition {
 
     private cond: string;
 
-    private order: number = 0;
-    
+    private order = 0;
+
     public getEvent(): string {
         return this.event;
     }
-    
+
     public setEvent(event: string) {
         this.event = event == null ? null : event.trim();
         if (this.event != null) {
             // 'event' is a space separated list of event descriptors
             this.events = new Array();
-            var st = this.event.split(" ", 3); 
-            for (var token of st) {
-                if (token == "*" || token == ".*") {
+            const st = this.event.split(' ', 3);
+            for (let token of st) {
+                if (token === '*' || token === '.*') {
                     this.events = new Array();
-                    this.events.push("*");
+                    this.events.push('*');
                     break;
                 }
                 else {
-                    if (token.endsWith("*")) {
-                        token = token.substring(0, token.length-1);
+                    if (token.endsWith('*')) {
+                        token = token.substring(0, token.length - 1);
                     }
-                    if (token.endsWith(".")) {
-                        token = token.substring(0, token.length-1);
+                    if (token.endsWith('.')) {
+                        token = token.substring(0, token.length - 1);
                     }
                     if (token.length > 0) {
                         this.events.push(token);
@@ -463,9 +647,9 @@ export class Transition extends SimpleTransition {
             this.events = new Array();
         }
         this.noEvents = this.events.length <= 0;
-        this.allEvents = !this.noEvents && this.events[0] === "*";
+        this.allEvents = !this.noEvents && this.events[0] === '*';
     }
-    
+
     public getEvents(): string[] {
         return this.events;
     }
@@ -473,7 +657,7 @@ export class Transition extends SimpleTransition {
     public getCond(): string {
         return this.cond;
     }
-    
+
     public setCond(cond: string) {
         this.cond = cond;
     }
@@ -481,7 +665,7 @@ export class Transition extends SimpleTransition {
     public getOrder(): number {
         return this.order;
     }
-    
+
     public setOrder(order: number) {
         this.order = order;
     }
@@ -492,11 +676,11 @@ export class Transition extends SimpleTransition {
 
     public isAllEventsTransition(): boolean {
         return this.allEvents;
-    }    
+    }
 }
 
 export class State extends TransitionalState {
-    
+
     private first: string;
 
     private initial: Initial;
@@ -517,9 +701,9 @@ export class State extends TransitionalState {
 
     public setFirst(target: string) {
         this.first = target;
-        var t = new SimpleTransition();
+        const t = new SimpleTransition();
         t.setNext(target);
-        var ini = new Initial();
+        const ini = new Initial();
         ini.setGenerated();
         ini.setTransition(t);
         ini.setParent(this);
@@ -548,7 +732,7 @@ export class State extends TransitionalState {
 }
 
 export class Parallel extends TransitionalState {
-    
+
     public isAtomicState(): boolean {
         return false;
     }
@@ -559,7 +743,7 @@ export class Parallel extends TransitionalState {
 }
 
 export class Final extends TransitionalState {
-    
+
     private doneData: DoneData;
 
     public getParent(): State {
@@ -584,7 +768,7 @@ export class Final extends TransitionalState {
 }
 
 export class History extends TransitionTarget {
-    
+
     private deep: boolean;
 
     private transition: SimpleTransition;
@@ -595,7 +779,7 @@ export class History extends TransitionTarget {
 
     public setTransition(transition: SimpleTransition) {
         if (this.getParent() == null) {
-            throw new Error("history transition cannot be set before setting its parent");
+            throw new Error('history transition cannot be set before setting its parent');
         }
         this.transition = transition;
         this.transition.setParent(this.getParent());
@@ -606,7 +790,7 @@ export class History extends TransitionTarget {
     }
 
     public setType(type: string) {
-        if ("deep" === type) {
+        if ('deep' === type) {
             this.deep = true;
         }
         //shallow is by default
@@ -622,7 +806,7 @@ export class History extends TransitionTarget {
 }
 
 export class Initial {
-    
+
     private parent: State;
 
     private transition: SimpleTransition;
@@ -661,15 +845,15 @@ export class Initial {
 export class Param {
 
     private name: string;
-    
+
     private location: string;
-    
+
     private expr: string;
-    
+
     public getName(): string {
         return this.name;
     }
-    
+
     public setName(name: string) {
         this.name = name;
     }
@@ -677,15 +861,15 @@ export class Param {
     public getLocation(): string {
         return this.location;
     }
-    
+
     public setLocation(location: string) {
         this.location = location;
     }
-    
+
     public getExpr(): string {
         return this.expr;
     }
-    
+
     public setExpr(expr: string) {
         this.expr = expr;
     }
@@ -694,46 +878,46 @@ export class Param {
 export class Action {
 
     private parent: Executable;
-    
+
     public getParent(): Executable {
         return this.parent;
     }
-    
+
     public setParent(parent: Executable) {
         this.parent = parent;
     }
-    
+
     public getParentEnterableState(): EnterableState {
         if (this.parent == null && this instanceof Script && this.isGlobalScript()) {
             // global script doesn't have a EnterableState
             return null;
         } else if (!this.parent) {
-            throw new Error("Action "
-                    + this.constructor.name + " instance missing required parent TransitionTarget");
+            throw new Error('Action '
+                + this.constructor.name + ' instance missing required parent TransitionTarget');
         }
         return this.parent.getParent();
     }
-    
-    public execute(exctx:ActionExecutionContext) {}
+
+    public execute(exctx: ActionExecutionContext) { }
 }
 
 export class CustomAction extends Action {
 
-    public static ERR_NO_NAMESPACE: string =
-        "Cannot define a custom SCXML action with a null or empty namespace";
+    public static ERR_NO_NAMESPACE =
+        'Cannot define a custom SCXML action with a null or empty namespace';
 
-    private static NAMESPACE_SCXML: string =
-        "http://www.w3.org/2005/07/scxml";
-        
+    private static NAMESPACE_SCXML =
+        'http://www.w3.org/2005/07/scxml';
+
     private static ERR_RESERVED_NAMESPACE: string =
-        "Cannot define a custom SCXML action within the SCXML namespace '"
-        + CustomAction.NAMESPACE_SCXML + "'";
-        
-    private static ERR_NO_LOCAL_NAME: string =
-        "Cannot define a custom SCXML action with a null or empty local name";
+        'Cannot define a custom SCXML action within the SCXML namespace \''
+        + CustomAction.NAMESPACE_SCXML + '\'';
 
-    private static ERR_NOT_AN_ACTION: string =
-        "Custom SCXML action does not extend Action superclass";
+    private static ERR_NO_LOCAL_NAME =
+        'Cannot define a custom SCXML action with a null or empty local name';
+
+    private static ERR_NOT_AN_ACTION =
+        'Custom SCXML action does not extend Action superclass';
 
     private namespaceURI: string;
 
@@ -742,26 +926,26 @@ export class CustomAction extends Action {
     public getNamespaceURI(): string {
         return this.namespaceURI;
     }
-    
+
     public setNamespaceURI(namespaceURI: string) {
         this.namespaceURI = namespaceURI;
     }
-    
+
     public getLocalName(): string {
         return this.localName;
     }
-    
+
     public setLocalName(localName: string) {
         this.localName = localName;
     }
 }
 
 export class Assign extends Action implements ParsedValueContainer {
-    
+
     private location: string;
-    
+
     private src: string;
-    
+
     private expr: string;
 
     private assignValue: ParsedValue;
@@ -769,43 +953,43 @@ export class Assign extends Action implements ParsedValueContainer {
     public getLocation(): string {
         return this.location;
     }
-    
+
     public setLocation(location: string) {
         this.location = location;
     }
-    
+
     public getSrc(): string {
         return this.src;
     }
-    
+
     public setSrc(src: string) {
         this.src = src;
     }
-    
+
     public getExpr(): string {
         return this.expr;
     }
-    
+
     public setExpr(expr: string) {
         this.expr = expr;
     }
-    
+
     public getParsedValue(): ParsedValue {
         return this.assignValue;
     }
-    
+
     public setParsedValue(assignValue: ParsedValue) {
         this.assignValue = assignValue;
     }
-    
-    public execute(exctx:ActionExecutionContext) {
-        var parentState: EnterableState = this.getParentEnterableState();
-        
-    }    
+
+    public execute(exctx: ActionExecutionContext) {
+        const parentState: EnterableState = this.getParentEnterableState();
+
+    }
 }
 
 export class Cancel extends Action {
-    
+
     private sentId: string;
 
     private sentIdExpr: string;
@@ -813,15 +997,15 @@ export class Cancel extends Action {
     public getSentId(): string {
         return this.sentId;
     }
-    
+
     public setSendId(sentId: string) {
         this.sentId = sentId;
     }
-    
+
     public getSentIdExpr(): string {
         return this.sentIdExpr;
     }
-    
+
     public setSentIdExpr(sentIdExpr: string) {
         this.sentIdExpr = sentIdExpr;
     }
@@ -830,61 +1014,61 @@ export class Cancel extends Action {
 export class Script extends Action {
 
     private globalScript: boolean;
-    
+
     private script: string;
-    
+
     private src: string;
 
     public isGlobalScript(): boolean {
         return this.globalScript;
     }
-    
+
     public setGlobalScript(globalScript: boolean) {
         this.globalScript = globalScript;
     }
-    
+
     public getScript(): string {
         return this.script;
     }
-    
+
     public setScript(script: string) {
         this.script = script;
     }
-    
+
     public getSrc(): string {
         return this.src;
     }
-    
+
     public setSrc(src: string) {
         this.src = src;
     }
 }
 
 export class Content extends Action implements ParsedValueContainer {
-    
+
     private expr: string;
 
     private contentBody: ParsedValue;
-    
+
     public getExpr(): string {
         return this.expr;
     }
-    
+
     public setExpr(expr: string) {
         this.expr = expr;
     }
-    
+
     public getParsedValue(): ParsedValue {
         return this.contentBody;
     }
-    
+
     public setParsedValue(contentBody: ParsedValue) {
         this.contentBody = contentBody;
     }
 }
 
 export class Data implements ParsedValueContainer {
-    
+
     private id: string;
 
     private src: string;
@@ -892,65 +1076,65 @@ export class Data implements ParsedValueContainer {
     private expr: string;
 
     private dataValue: ParsedValue;
-    
+
     public getId(): string {
         return this.id;
     }
-    
+
     public setId(id: string) {
         this.id = id;
     }
-    
+
     public getSrc(): string {
         return this.src;
     }
-    
+
     public setSrc(src: string) {
         this.src = src;
     }
-    
+
     public getExpr(): string {
         return this.expr;
     }
-    
+
     public setExpr(expr: string) {
         this.expr = expr;
     }
-    
+
     public getParsedValue(): ParsedValue {
         return this.dataValue;
     }
-    
+
     public setParsedValue(dataValue: ParsedValue) {
         this.dataValue = dataValue;
     }
 }
 
 export class DataModel {
-    
+
     private data: Data[] = [];
 
     public getOnEntries(): Data[] {
         return this.data;
     }
-    
+
     public addOnEntry(data: Data) {
-       if (data) {
-           this.data.push(data);
-       }
+        if (data) {
+            this.data.push(data);
+        }
     }
 }
 
 export class DoneData {
-    
+
     private content: Content;
 
     private paramsList: Param[] = [];
-    
+
     public getContent(): Content {
         return this.content;
     }
-    
+
     public setContent(content: Content) {
         this.content = content;
     }
@@ -958,33 +1142,33 @@ export class DoneData {
     public getParams(): Param[] {
         return this.paramsList;
     }
-    
+
     public addOnEntry(param: Param) {
-       if (param) {
-           this.paramsList.push(param);
-       }
+        if (param) {
+            this.paramsList.push(param);
+        }
     }
 }
 
 export class ElseIf extends Action {
-    
+
     private cond: string;
 
     public getCond(): string {
         return this.cond;
     }
-    
+
     public setCond(cond: string) {
         this.cond = cond;
     }
-    
-    public execute(exctx:ActionExecutionContext) {
+
+    public execute(exctx: ActionExecutionContext) {
         // nothing to do, the <if> container will take care of this
-    }    
+    }
 }
 
 export class Else extends ElseIf {
-    
+
 }
 
 export class If extends Action {
@@ -993,33 +1177,33 @@ export class If extends Action {
 
     private actions: Action[] = [];
 
-    private executable: boolean = false;
+    private executable = false;
 
     public getCond(): string {
         return this.cond;
     }
-    
+
     public setCond(cond: string) {
         this.cond = cond;
     }
-    
+
     public getActions(): Action[] {
         return this.actions;
     }
-    
+
     public addAction(action: Action) {
         if (action) {
             this.actions.push(action);
         }
     }
-    
-    public execute(exctx:ActionExecutionContext) {
 
-    }    
+    public execute(exctx: ActionExecutionContext) {
+
+    }
 }
 
 export class Foreach extends Action {
-    
+
     private array: string;
     private item: string;
     private index: string;
@@ -1066,7 +1250,7 @@ export class Foreach extends Action {
 }
 
 export class Raise extends Action {
-    
+
     private event: string;
 
     public getEvent(): string {
@@ -1082,12 +1266,12 @@ export class Raise extends Action {
 }
 
 export class Send extends Action {
-    
-    private static MILLIS = "ms";
 
-    private static SECONDS = "s";
+    private static MILLIS = 'ms';
 
-    private static MINUTES = "m";
+    private static SECONDS = 's';
+
+    private static MINUTES = 'm';
 
     private static MILLIS_IN_A_SECOND = 1000;
 
@@ -1255,10 +1439,10 @@ export class Var extends Action {
     public setName(name: string) {
         this.name = name;
     }
-    
-    public execute(exctx:ActionExecutionContext) {
 
-    }    
+    public execute(exctx: ActionExecutionContext) {
+
+    }
 }
 
 export class Log extends Action {
@@ -1268,26 +1452,26 @@ export class Log extends Action {
     private expr: string;
 
     private dataValue: ParsedValue;
-    
+
     public getLabel(): string {
         return this.label;
     }
-    
+
     public setLabel(label: string) {
         this.label = label;
     }
-    
+
     public getExpr(): string {
         return this.expr;
     }
-    
+
     public setExpr(expr: string) {
         this.expr = expr;
     }
-    
-    public execute(exctx:ActionExecutionContext) {
 
-    }    
+    public execute(exctx: ActionExecutionContext) {
+
+    }
 }
 
 export class TextValue implements ParsedValue {
@@ -1299,12 +1483,12 @@ export class TextValue implements ParsedValue {
     constructor(text: string, cdata: boolean) {
         this.text = text;
         this.cdata = cdata;
-    }    
+    }
 
     public isCDATA(): boolean {
         return this.cdata;
     }
-    
+
     public setCDATA(cdata: boolean) {
         this.cdata = cdata;
     }
@@ -1312,7 +1496,7 @@ export class TextValue implements ParsedValue {
     public getValue(): string {
         return this.text;
     }
-    
+
     public getType(): ParsedValueType {
         return ParsedValueType.TEXT;
     }
@@ -1320,27 +1504,27 @@ export class TextValue implements ParsedValue {
 
 export class JsonValue implements ParsedValue {
 
-    private jsonObject: Object;
+    private jsonObject: any;
 
     private cdata: boolean;
 
-    constructor(jsonObject: Object, cdata: boolean) {
+    constructor(jsonObject: any, cdata: boolean) {
         this.jsonObject = jsonObject;
         this.cdata = cdata;
-    }    
+    }
 
     public isCDATA(): boolean {
         return this.cdata;
     }
-    
+
     public setCDATA(cdata: boolean) {
         this.cdata = cdata;
     }
 
-    public getValue(): Object {
+    public getValue(): any {
         return this.jsonObject;
     }
-    
+
     public getType(): ParsedValueType {
         return ParsedValueType.JSON;
     }
@@ -1348,16 +1532,16 @@ export class JsonValue implements ParsedValue {
 
 export class NodeListValue implements ParsedValue {
 
-    private nodeList: Object;
+    private nodeList: any;
 
-    constructor(nodeList: Object) {
+    constructor(nodeList: any) {
         this.nodeList = nodeList;
-    }    
+    }
 
-    public getValue(): Object {
+    public getValue(): any {
         return this.nodeList;
     }
-    
+
     public getType(): ParsedValueType {
         return ParsedValueType.NODE_LIST;
     }
@@ -1369,12 +1553,12 @@ export class NodeTextValue implements ParsedValue {
 
     constructor(nodeText: string) {
         this.nodeText = nodeText;
-    }    
+    }
 
     public getValue(): string {
         return this.nodeText;
     }
-    
+
     public getType(): ParsedValueType {
         return ParsedValueType.NODE_TEXT;
     }
@@ -1382,16 +1566,16 @@ export class NodeTextValue implements ParsedValue {
 
 export class NodeValue implements ParsedValue {
 
-    private node: Object;
+    private node: any;
 
-    constructor(node: Object) {
+    constructor(node: any) {
         this.node = node;
-    }    
+    }
 
-    public getValue(): Object {
+    public getValue(): any {
         return this.node;
     }
-    
+
     public getType(): ParsedValueType {
         return ParsedValueType.NODE;
     }
@@ -1405,13 +1589,13 @@ export class Finalize extends Executable {
 
     public setParent(parent: TransitionalState) {
         super.setParent(parent);
-    }    
+    }
 }
 
 
 export class Invoke extends Action implements ContentContainer, ParamsContainer {
-    
-    private static CURRENT_EXECUTION_CONTEXT_KEY = "_CURRENT_EXECUTION_CONTEXT";
+
+    private static CURRENT_EXECUTION_CONTEXT_KEY = '_CURRENT_EXECUTION_CONTEXT';
 
     private id: string;
 
@@ -1537,14 +1721,14 @@ export class Invoke extends Action implements ContentContainer, ParamsContainer 
 
     public setParentEnterableState(parent: EnterableState, invokeIndex: number) {
         if (parent == null) {
-            throw new Error("Parent parameter cannot be null");
+            throw new Error('Parent parameter cannot be null');
         }
         this.parentEnterableState = parent;
         this.invokeIndex = invokeIndex;
     }
 
     public execute(axctx: ActionExecutionContext) {
-        var parentState = this.getParentEnterableState();
+        const parentState = this.getParentEnterableState();
     }
 }
 
