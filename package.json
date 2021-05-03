@@ -4,14 +4,14 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build state-flow-library",
+    "start": "ng serve showcase",
+    "build": "ng build state-flow",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:showcase": "ng build state-flow --prod --base-href=/state-flow-ng",
-    "build:docs": "rm -rf docs/ && ng build state-flow --prod --base-href=/state-flow-ng/ --deploy-url=/state-flow-ng/ --output-path=docs",
-    "build:library": "ng build state-flow-library"
+    "build:showcase": "ng build showcase --prod --base-href=/state-flow-ng",
+    "build:docs": "rm -rf docs/ && ng build showcase --prod --base-href=/state-flow-ng/ --deploy-url=/state-flow-ng/ --output-path=docs",
+    "build:library": "ng build state-flow"
   },
   "private": true,
   "release": {
@@ -23,7 +23,7 @@
       [
         "@semantic-release/npm",
         {
-          "pkgRoot": "dist/state-flow-ng"
+          "pkgRoot": "dist/state-flow"
         }
       ],
       "@semantic-release/release-notes-generator"

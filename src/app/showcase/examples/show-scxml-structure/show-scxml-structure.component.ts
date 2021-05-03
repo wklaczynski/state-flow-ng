@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Scxml } from '@state-flow/scxml/model';
+import { Scxml } from '@ssoft/state-flow/scxml/model';
 import { ScxmlReader } from 'src/libs/state-flow/scxml/io';
 
 @Component({

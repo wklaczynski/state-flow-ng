@@ -23,7 +23,7 @@
                 "src/libs/state-flow/*/public_api"
             ],
             "@ssoft/eslint-package/*": [
-                "src/libs/eslint-package/*/public_api"
+                "src/libs/eslint-package/src/libs"
             ]
         }
     },

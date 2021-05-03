@@ -3,17 +3,17 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "state-flow-library": {
+    "state-flow": {
       "projectType": "library",
-      "root": "src/libs/state-flow",
-      "sourceRoot": "src/libs/state-flow",
+      "root": "src/libs/showcase",
+      "sourceRoot": "src/libs/showcase",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "src/libs/state-flow/ng-package.json",
-            "tsConfig": "src/libs/state-flow/tsconfig.lib.json"
+            "project": "src/libs/showcase/ng-package.json",
+            "tsConfig": "src/libs/showcase/tsconfig.lib.json"
           }
         }
       }
@@ -50,7 +50,7 @@
         }
       }
     },
-    "state-flow": {
+    "showcase": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -113,19 +113,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "state-flow:build",
+            "browserTarget": "showcase:build",
             "deployUrl": "/"
           },
           "configurations": {
             "production": {
-              "browserTarget": "state-flow:build:production"
+              "browserTarget": "showcase:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "state-flow:build"
+            "browserTarget": "showcase:build"
           }
         },
         "test": {
@@ -169,5 +169,5 @@
       }
     }
   },
-  "defaultProject": "state-flow"
+  "defaultProject": "showcase"
 }
