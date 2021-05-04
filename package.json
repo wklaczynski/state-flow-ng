@@ -12,7 +12,7 @@
     "build:showcase": "ng build showcase --prod --base-href=/state-flow-ng",
     "build:docs": "rm -rf docs/ && ng build showcase --prod --base-href=/state-flow-ng/ --deploy-url=/state-flow-ng/ --output-path=docs",
     "build:library": "ng build state-flow",
-    "build:eslint-package": "ng build eslint-plugin"
+    "build:eslint-package": "ng build eslint-plugin-scxml"
   },
   "private": true,
   "release": {
@@ -62,7 +62,7 @@
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
     "del": "^2.2.2",
-    "eslint": "^7.6.0",
+    "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "latest",
     "eslint-plugin-jsdoc": "latest",

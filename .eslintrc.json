@@ -52,13 +52,12 @@
     },
     {
       "files": [
-        "*.js"
+        "*.vscxml"
       ],
       "extends": [
         "plugin:@angular-eslint/template/recommended"
       ],
-      "rules": {
-      }
+      "rules": {}
     }
   ]
 }

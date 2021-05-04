@@ -20,19 +20,19 @@
     },
     "eslint-plugin": {
       "projectType": "library",
-      "root": "src/libs/eslint-packages/eslint-plugin",
-      "sourceRoot": "src/libs/eslint-packages/eslint-plugin/src",
+      "root": "src/libs/eslint-packages/eslint-plugin-template",
+      "sourceRoot": "src/libs/eslint-packages/eslint-plugin-template/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "src/libs/eslint-packages/eslint-plugin/tsconfig.lib.json",
-            "project": "src/libs/eslint-packages/eslint-plugin/ng-package.json"
+            "tsConfig": "src/libs/eslint-packages/eslint-plugin-template/tsconfig.lib.json",
+            "project": "src/libs/eslint-packages/eslint-plugin-template/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "src/libs/eslint-packages/eslint-plugin/tsconfig.lib.prod.json"
+              "tsConfig": "src/libs/eslint-packages/eslint-plugin-template/tsconfig.lib.prod.json"
             }
           }
         },

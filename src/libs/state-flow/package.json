@@ -1,5 +1,5 @@
 {
-  "name": "state-flow",
+  "name": "@ssoft/state-flow",
   "version": "1.0.0",
   "description": "Angular state-flow",
   "author": "wklaczynski",

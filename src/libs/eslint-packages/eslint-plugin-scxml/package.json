@@ -1,7 +1,7 @@
 {
-  "name": "eslint-package",
+  "name": "@ssoft/eslint-plugin-scxml",
   "version": "1.0.0",
-  "description": "Angular State Flow Eslint Package",
+  "description": "Angular State Flow Eslint Template Parser",
   "author": "Waldemar Kłaczyński (Saba Soft)",
   "license": "MIT",
   "devDependencies": {
